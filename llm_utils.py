@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 # Load API key from .env file
 load_dotenv()
 openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
+print(openrouter_api_key
 
 # Initialize OpenAI client with OpenRouter config
 client = OpenAI(
