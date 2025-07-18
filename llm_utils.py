@@ -53,7 +53,7 @@ Only include the chart block if the user clearly asks for a chart.
             model=MODEL_NAME,
             messages=messages,
             extra_headers={
-                "HTTP-Referer": "http://localhost",  # optional
+                "HTTP-Referer": "https://vinay-0821-chatbot-app-jbnfyh.streamlit.app",  # optional
                 "X-Title": "Excel Chat Assistant"      # optional
             }
         )
