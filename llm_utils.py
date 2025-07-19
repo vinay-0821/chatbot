@@ -4,23 +4,19 @@ import pandas as pd
 from openai import OpenAI
 from dotenv import load_dotenv
 
-# Load API key from .env file
 load_dotenv()
 openrouter_api_key = os.getenv("OPENROUTER_API_KEY")
 
-# Initialize OpenAI client with OpenRouter config
 client = OpenAI(
     base_url="https://openrouter.ai/api/v1",
     api_key=openrouter_api_key,
 )
 
-MODEL_NAME = "deepseek/deepseek-r1-0528:free"  # Valid OpenRouter model
+MODEL_NAME = "deepseek/deepseek-r1-0528:free" 
 
 def get_llm_response(df, user_query):
-    # Preview first few rows of the data
     preview = df.head(100).to_dict(orient="records")
 
-    # Instructional system prompt
     system_prompt = """You are a helpful data analyst.
 
 You will be given:
@@ -38,11 +34,8 @@ Your task:
   "y": "column_name"
 }
 ```
-
-Only include the chart block if the user clearly asks for a chart.
 """
 
-    # Prepare messages for chat completion
     messages = [
         {"role": "system", "content": system_prompt},
         {"role": "user", "content": f"Data Preview:\n{preview}\n\nQuestion:\n{user_query}"}
@@ -53,15 +46,14 @@ Only include the chart block if the user clearly asks for a chart.
             model=MODEL_NAME,
             messages=messages,
             extra_headers={
-                "HTTP-Referer": "https://vinay-0821-chatbot-app-jbnfyh.streamlit.app",  # optional
-                "X-Title": "Excel Chat Assistant"      # optional
+                "HTTP-Referer": "https://vinay-0821-chatbot-app-jbnfyh.streamlit.app",
+                "X-Title": "Excel Chat Assistant" 
             }
         )
         content = completion.choices[0].message.content.strip()
     except Exception as e:
         return f"API Error: {e}", None
 
-    # Extract chart info if present
     chart_info = None
     answer = content
 

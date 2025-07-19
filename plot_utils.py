@@ -6,7 +6,6 @@ def generate_plot(df: pd.DataFrame, chart_info: dict):
     x = chart_info.get("x")
     y = chart_info.get("y")
 
-    # Clean column names for Altair compatibility
     df = df.rename(columns=lambda col: col.replace(":", "_").replace("-", "_").replace(" ", "_"))
     x = x.replace(":", "_").replace("-", "_").replace(" ", "_")
     y = y.replace(":", "_").replace("-", "_").replace(" ", "_")
